@@ -1,0 +1,10 @@
+.active{
+    color:teal;
+    font-weight: 800px;
+    border-bottom: 4px solid teal; 
+}
+
+
+.lineaV{
+    border-right: 2px solid black;
+}

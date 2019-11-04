@@ -1,0 +1,99 @@
+<h1>{{vm.titulo}}</h1>
+    <h2>Nº de contratos: {{vm.contratosJson.length}}</h2>
+
+<div class="row">
+<h4>Tareas Pendientes</h4>
+<ol>
+    <li>Numero contratos sin acciones</li>
+    <li>Numero contratos entre 1 y 3 acciones</li>
+    <li>Numero contrastos > 3 acciones</li>
+    <li>Numero - Todas las acciones diferentes</li>
+    <li>Find - Buscar primer contrato que en las acciones tenga  clave = SITUACION </li>
+    <li>Find - Buscar ultimo contrato que en las acciones tenga  clave = SITUACION </li>
+    <li>sacar datos por consola y pintar un length en pantalla</li>
+ </ol>
+</div>
+<div class="row">
+    <h4>Resultados</h4>
+    <ol>
+        <li>{{vm.sinAcciones.length}}</li>
+        <li>{{vm.accionesEntre.length}}</li>
+        <li>{{vm.accionesMayor.length}}</li>
+        <li>{{vm.accionesDif.length}}</li>
+        <li>{{vm.accionesEntre.length}}</li>
+        <li>{{vm.accionesEntre.length}}</li>
+        <li>{{vm.accionesEntre.length}}</li>
+    </ol>
+
+
+</div>
+<div class="row">
+<div class="col lineaV">
+        <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+          Filtros
+        </button>
+      </<b>
+      <div class="collapse" id="collapseExample1">
+        <div class="card card-body mb-4">
+                Nombre: <input class="form-control" type="search" ng-model="filtro.nombre" placeholder="escriba el Nombre">
+                FatherColum: <input class="form-control" type="search" ng-model="filtro.fatherColumn" placeholder="escriba el FatherColum">
+        </div>
+      </div>
+        <table class="table text-center">
+        <thead>
+          <tr>
+            <th scope="col" >#</th>
+            <th scope="col"  ng-click="campo='idColumn'; orden=!orden">idColumn</th>
+            <th scope="col"  ng-click="campo='nombre'; orden=!orden">Nombre</th>
+            <th scope="col" >Nº Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat ="contrato in vm.contratosJson | filter:filtro | orderBy:campo:orden">
+            <td>{{$index}}</td>
+            <td>{{contrato.idColumn}}</td>
+            <td>{{contrato.nombre?contrato.nombre:"Sin Nombre"}}</td>
+            <td>{{contrato.ACCIONES.length?contrato.ACCIONES.length:0}}</td>
+           
+          </tr>
+        </tbody>
+</table>    
+</div>
+
+<div class="col">
+        <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                Filtros
+              </button>
+        
+            <div class="collapse" id="collapseExample2">
+              <div class="card card-body mb-4">
+                      Nombre: <input class="form-control" type="search" ng-model="busqueda.nombre" placeholder="escriba el Nombre">
+                      Num. Acciones: <input class="form-control" type="search" ng-model="busqueda.numeroAcciones" placeholder="escriba el Numero Acciones">
+                </div>
+            </div>
+        <table class="table text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" ng-click="elem='id'; order=!order">id</th>
+            <th scope="col" ng-click="elem='nombre'; order=!order">Nombre</th>
+            <th scope="col" ng-click="elem='numeroAcciones'; order=!order">Nº Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat ="contrato in vm.contratosMapeados | filter:busqueda | orderBy:elem:order">
+            <td>{{$index}}</td>
+            <td>{{contrato.id}}</td>
+            <td>{{contrato.nombre}}</td>
+            <td>{{contrato.numeroAcciones}}</td>
+          </tr>
+        </tbody>
+</table>    
+
+</div>
+
+</div>
+<!--
+<pre>{{vm.contratosJson | json}}</pre>
+-->
+
