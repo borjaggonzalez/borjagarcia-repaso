@@ -13,7 +13,12 @@ const app = angular.module("repaso", //nombre de la App o modulo principal
                             );
 
 //2.registro de Servicios y Modulos en la App
-app.controller("contratosController",ContratosController);
+app
+  .service("librosService",LibrosService)
+  .controller("contratosController",ContratosController)
+  .controller("librosController",LibrosController);
+
+
 
 
 //3.Configuracion de rutas
@@ -50,7 +55,15 @@ app.config([
                  templateUrl: "views/contratos.html",
                  controller: ContratosController
              }
-        );
+        )
+        //Listado Libros
+        .state(
+          "libros", {
+               url: "/listado-libros",
+               templateUrl: "views/libros.html",
+               controller: LibrosController
+           }
+      );
        
      
 

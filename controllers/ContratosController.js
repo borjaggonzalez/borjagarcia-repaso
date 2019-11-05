@@ -20,12 +20,15 @@ var ContratosController = (function () {
         $scope.vm.accionesMayor = $scope.vm.contratosMapeados.filter(function (elem) { return elem.numeroAcciones > 3; });
         console.debug("datos de contratos con acciones mayor que 3 %o ", $scope.vm.accionesEntre);
         $scope.vm.temporal = $scope.vm.contratos.filter(function (elem) { return elem.ACCIONES != "" && elem.ACCIONES != undefined; });
-        $scope.vm.accionesDif = $scope.vm.temporal.map(function (elem) { return elem.ACCIONES; }).filter(function (v, i, a) {
-            if (!$scope.vm.temporal.titulo && !$scope.vm.temporal.clave) {
-                return a.indexOf(v) === i;
-            }
-        });
+        console.debug('temporales %o', $scope.vm.temporal);
+        $scope.vm.temp = $scope.vm.temporal.map(function (elem) { return elem.ACCIONES.map(function (e) { return e.titulo; }).flat(); });
+        $scope.vm.accionesDif = $scope.vm.temp.flat().filter(function (v, i, a) { return a.indexOf(v) === i; });
+        console.debug('temporales unidos %o', $scope.vm.temp);
         console.debug("datos de contratos listado acciones ", $scope.vm.accionesDif);
+        $scope.vm.accionesFindPrimero = $scope.vm.temporal.find(function (elem) { return elem.ACCIONES.find(function (elem) { return elem.clave === 'SITUACION'; }); });
+        console.debug("datos del primer contrato con acciones con clave SITUACION %o ", $scope.vm.accionesFindPrimero);
+        $scope.vm.accionesFindUltimo = $scope.vm.temporal.reverse().find(function (elem) { return elem.ACCIONES.find(function (elem) { return elem.clave == 'SITUACION'; }); });
+        console.debug("datos del ultimo contrato con acciones con clave SITUACION %o ", $scope.vm.accionesFindUltimo);
     }
     ContratosController.$inject = ["$scope", "contratosJson"];
     return ContratosController;

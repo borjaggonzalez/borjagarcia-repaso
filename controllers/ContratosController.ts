@@ -18,7 +18,10 @@ public sinAcciones:Array<IContratosResumen>;
 public accionesEntre:Array<IContratosResumen>;
 public accionesMayor:Array<IContratosResumen>;
 public accionesDif:any;
+public accionesFindPrimero:any;
+public accionesFindUltimo:any;
 public temporal:any;
+public temp:any;
 
 constructor(private $scope:IContratosControllerScope, private contratosJson:any){
     $scope.vm = this;
@@ -35,44 +38,56 @@ constructor(private $scope:IContratosControllerScope, private contratosJson:any)
         }
 
     });
-    // 1- Numero contratos sin acciones
+
     $scope.vm.sinAcciones=$scope.vm.contratosMapeados.filter((elem)=>elem.numeroAcciones==0);
         console.debug("datos de contratos sin acciones %o ",$scope.vm.sinAcciones);
     
-    // 2- Numero contratos con numero de acciones entre 1 y 3
+
+
     $scope.vm.accionesEntre = $scope.vm.contratosMapeados.filter(
         (elem)=>elem.numeroAcciones>=1 &&  elem.numeroAcciones<=3
         );
-    // 3- Numero contratos con numero de acciones > 3
+
     console.debug("datos de contratos con acciones  entre 1 y 3 %o ",$scope.vm.accionesEntre);
     
+
+
     $scope.vm.accionesMayor = $scope.vm.contratosMapeados.filter(
         (elem)=>  elem.numeroAcciones>3
         );
 
-    // 4- Mostrar todas las acciones sin duplicados
     console.debug("datos de contratos con acciones mayor que 3 %o ",$scope.vm.accionesEntre);
 
-        $scope.vm.temporal = $scope.vm.contratos.filter((elem)=>elem.ACCIONES!="" && elem.ACCIONES != undefined );
-    $scope.vm.accionesDif = $scope.vm.temporal.map((elem)=>elem.ACCIONES).filter((v,i,a)=>{
 
-            if(!$scope.vm.temporal.titulo && !$scope.vm.temporal.clave){
-                
-                return a.indexOf(v)===i;
-            }
 
-    });
-
-    console.debug("datos de contratos listado acciones ",$scope.vm.accionesDif);
-
-     //5- Find - Buscar primer contrato que en las acciones tenga  clave = SITUACION
+ $scope.vm.temporal = $scope.vm.contratos.filter((elem)=>elem.ACCIONES!="" && elem.ACCIONES != undefined );
+ console.debug('temporales %o', $scope.vm.temporal);
 
 
 
+        $scope.vm.temp=$scope.vm.temporal.map((elem)=>elem.ACCIONES.map(e=>e.titulo).flat());
+        $scope.vm.accionesDif = $scope.vm.temp.flat().filter((v,i,a)=>a.indexOf(v)===i);
+
+        console.debug('temporales unidos %o',$scope.vm.temp);
+         console.debug("datos de contratos listado acciones ",$scope.vm.accionesDif);
 
 
-     //6- Find - Buscar ultimo contrato que en las acciones tenga  clave = SITUACION
+      
+    $scope.vm.accionesFindPrimero = $scope.vm.temporal.find(
+            (elem)=> elem.ACCIONES.find(  (elem) =>elem.clave === 'SITUACION')
+        );
 
+    console.debug("datos del primer contrato con acciones con clave SITUACION %o ",$scope.vm.accionesFindPrimero);
+
+
+
+
+      
+    $scope.vm.accionesFindUltimo = $scope.vm.temporal.reverse().find(
+        (elem)=> elem.ACCIONES.find((elem) =>elem.clave == 'SITUACION')
+    );
+
+console.debug("datos del ultimo contrato con acciones con clave SITUACION %o ",$scope.vm.accionesFindUltimo);
 
 }
 }
