@@ -16,6 +16,15 @@
         "autor":"Ibañez",
         "digital":true,
         "formatos":["epub","pdf"]
+      },
+      {
+        "id":3,
+        "titulo":"Harry Potter",
+        "isbn":"789-QWE",
+        "numeroPaginas":200,
+        "autor":"J.K. Rowling",
+        "digital":true,
+        "formatos":["epub"]
       }
   ],
 

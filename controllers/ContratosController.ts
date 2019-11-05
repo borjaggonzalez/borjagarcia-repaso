@@ -2,11 +2,6 @@ interface IContratosControllerScope extends ng.IScope{
     vm:ContratosController;
 }
 
-interface IContratosResumen{
-    id:String;
-    nombre:String;
-    numeroAcciones:number;
-}
 
 class ContratosController implements ng.IController{
 
